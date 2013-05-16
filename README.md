@@ -51,4 +51,5 @@ licensed under the [MIT license](http://opensource.org/licenses/MIT):
 > SOFTWARE.
 
 The Library's uses crypto primitives from [Forge](https://github.com/digitalbazaar/forge) which is licensed under [BSD and GPL](https://github.com/digitalbazaar/forge/blob/master/LICENSE).
-Copyright 2011-2013 Digital Bazaar, Inc.
+
+Copyright &copy; 2011-2013 Digital Bazaar, Inc.
