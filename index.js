@@ -1,49 +1,30 @@
 /**
  * Node.js module for common crypto.
- * Copyright 2013 Whiteout Networks GmbH.
  *
- * Based on the Node.js module for Forge.
- * https://github.com/digitalbazaar/forge
- * Copyright 2011-2013 Digital Bazaar, Inc.
+ * Copyright 2013 Whiteout Networks GmbH.
  */
 (function() {
 	'use strict';
 
-	var deps = [
-		'./src/aes-cbc',
-		'./src/rsa',
-		'./src/util',
-		'./src/crypto-batch'];
+	// import dependecies
+	var crypt = require('crypto'),
+		uuid = require('node-uuid'),
+		forge = require('node-forge'),
+		RSA = require('./src/rsa'),
+		Util = require('./src/util'),
+		AesCBC = require('./src/aes-cbc'),
+		CryptoBatch = require('./src/crypto-batch');
 
-	var cjsDefine = null;
-	if (typeof define !== 'function') {
-		// CommonJS -> AMD
-		if (typeof module === 'object' && module.exports) {
-			cjsDefine = function(ids, factory) {
-				module.exports = factory.apply(null, ids.map(function(id) {
-					return require(id);
-				}));
-			};
-		}
-		// <script>
-		else {
-			if (typeof whiteout === 'undefined') {
-				whiteout = {};
-			}
-			initModule(whiteout);
-		}
-	}
-	// AMD
-	if (cjsDefine || typeof define === 'function') {
-		// define module AMD style
-		(cjsDefine || define)(deps, function() {
-			var whiteout = {};
-			var mods = Array.prototype.slice.call(arguments);
-			for (var i = 0; i < mods.length; ++i) {
-				mods[i](whiteout);
-			}
-			return whiteout;
-		});
-	}
+	// create and inject dependecies
+	var util = new Util(undefined, uuid, crypt),
+		rsa = new RSA(forge, util),
+		aes = new AesCBC(forge),
+		cryptoBatch = new CryptoBatch(aes, rsa, util);
+
+	// export public api
+	module.exports.util = util;
+	module.exports.aes = aes;
+	module.exports.rsa = rsa;
+	module.exports.cryptoBatch = cryptoBatch;
 
 })();

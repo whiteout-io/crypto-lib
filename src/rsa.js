@@ -29,7 +29,7 @@ var RSA = function(forge, util) {
 	this.generateKeypair = function(keySize, callback) {
 		forge.rsa.generateKeyPair({
 			bits: keySize,
-			workerScript: app.config.workerPath + '/../../lib/forge/prime.worker.js'
+			workerScript: (typeof app !== 'undefined') ? (app.config.workerPath + '/../../lib/forge/prime.worker.js') : undefined
 		}, function(err, newKeypair) {
 			if (err || !newKeypair || !newKeypair.publicKey || !newKeypair.privateKey) {
 				callback({
