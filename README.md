@@ -50,4 +50,4 @@ licensed under the [MIT license](http://opensource.org/licenses/MIT):
 > CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 > SOFTWARE.
 
-The Library's uses crypto primitives from [Forge](https://github.com/digitalbazaar/forge) which is licensed under [BSD and GPL](https://github.com/digitalbazaar/forge/blob/master/LICENSE).
+The Library's uses crypto primitives from [Forge](https://github.com/digitalbazaar/forge) by Digital Bazaar, Inc. which is licensed under [BSD and GPL](https://github.com/digitalbazaar/forge/blob/master/LICENSE).
