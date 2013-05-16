@@ -1,4 +1,4 @@
 crypto-lib
 ==========
 
-Common crypto module for node.js and the browser
+Common crypto module for node.js and the browser.
