@@ -15,5 +15,8 @@
 	"dependencies": {
 		"node-uuid": "latest",
 		"node-forge": "https://github.com/digitalbazaar/forge/tarball/7b9fd4ce32d57273374e8c443d2e348911e6e78c"
+	},
+	"devDependencies": {
+		"mocha": "latest"
 	}
 }
