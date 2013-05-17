@@ -3,9 +3,9 @@ crypto-lib
 
 A high level crypto module for node.js and the browser. This Library exposes a basic high level crypto api, which combines the following low level operations into a few simple steps:
 
+* UTF-8 plaintext encoding
 * item-key generation
 * initialization-vector generation
-* UTF-8 plaintext encoding
 * AES-CBC item encryption
 * Base64 ciphertext encoding
 * RSA item-key encryption
