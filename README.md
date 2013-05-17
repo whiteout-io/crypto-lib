@@ -39,8 +39,8 @@ Peer review and feedback are appreciated!
 ## Usage Browser/PhoneGap:
 
 * Has been tested to work on iOS, Chrome, Firefox, Safari and Internet Explorer 10.
-* The crypto operations should be done inside of a Web Worker thread to not block the main UI thread.
 * For browsers that don't support window.crypto.getRandomValues(), forge's fortuna algorithm is used to generate pseudo random numbers.
+* The crypto operations should be done inside of a Web Worker thread to not block the main UI thread.
 * [This video](http://www.youtube.com/watch?v=WljJ5guzcLs&feature=share&list=PLBNz3Grrh0qUDwpT0G_1zt9n_uOuan920) also gives some good pointers on how to secure your HTML5 app using Content Security Policy (CSP), sandboxed iframes and CORS in order to protect against XSS and other attacks.
 
 
