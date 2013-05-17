@@ -1,7 +1,7 @@
 crypto-lib
 ==========
 
-Common crypto module for node.js and the browser. This Library exposes a basic high level crypto api, which does low level operations such as item-key generation, initialization-vector generation, UTF-8 encoding, AES item encryption, bas64 encoding, RSA item-key encryption and RSA signing of all items in two simple steps.
+Common crypto module for node.js and the browser. This Library exposes a basic high level crypto api, which does low level operations such as item-key generation, initialization-vector generation, UTF-8 encoding, AES item encryption, Base64 encoding, RSA item-key encryption and RSA signing of all items in two simple steps.
 
 Peer review and feedback are appreciated!
 
