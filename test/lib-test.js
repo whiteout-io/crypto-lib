@@ -28,12 +28,13 @@ describe('Crypto Lib Api Test', function() {
 	describe("En/Decrypt for User", function() {
 		it('return decrypt the given plaintext', function() {
 
-			var envelopes = [];
+			var envelopes = [],
+				msg = 'Hello, World!';
 
 			// package objects into batchable envelope format
 			var envelope = {
 				id: lib.util.UUID(),
-				plaintext: 'Hello, World!',
+				plaintext: msg,
 				key: lib.util.random(lib_test.aesKeysize),
 				iv: lib.util.random(lib_test.aesKeysize)
 			};
@@ -46,7 +47,7 @@ describe('Crypto Lib Api Test', function() {
 
 			// decrypt
 			var decryptedList = lib.cryptoBatch.decryptListForUser(encryptedList);
-			assert.equal(envelopes[0].plaintext, decryptedList[0]);
+			assert.equal(msg, decryptedList[0]);
 
 		});
 	});
