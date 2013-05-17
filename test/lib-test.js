@@ -11,7 +11,7 @@ describe('Crypto Lib Api Test', function() {
 	describe("Generate UUID", function() {
 		it('should work', function() {
 			var uuid = lib.util.UUID();
-			assert.ok(uuid, uuid);
+			assert.ok(!uuid);
 		});
 	});
 
