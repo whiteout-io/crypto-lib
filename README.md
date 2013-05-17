@@ -13,7 +13,8 @@ A high level crypto module for node.js and the browser. This library exposes a b
 
 Peer review and feedback are appreciated!
 
-## Usage:
+
+## Usage (node.js):
 
 	var lib = require('crypto-lib');
 
@@ -33,6 +34,15 @@ Peer review and feedback are appreciated!
 
 	// decrypt and verify using AES and RSA
 	var decryptedList = lib.cryptoBatch.decryptListForUser(encryptedList);
+
+
+## Usage browser:
+
+* Should be used inside of a Web Worker thread to not block the main UI thread.
+* Has been tested to work on iOS, Chrome, Firefox, and Internet Explorer 10.
+* For browsers that don't support the cryptographically secure RNG window.crypto.getRandomValues(), forge's fortuna algorithm is used to generate pseudo random numbers.
+* [This video](http://www.youtube.com/watch?v=WljJ5guzcLs&feature=share&list=PLBNz3Grrh0qUDwpT0G_1zt9n_uOuan920) also gives some good pointer how to secure your HTML5 using CSP, sandboxed iframes and CORS in order to protect against XSS and other attacks.
+
 
 ## License
 
