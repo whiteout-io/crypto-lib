@@ -1,7 +1,7 @@
 crypto-lib [![Build Status](https://travis-ci.org/whiteout-io/crypto-lib.png?branch=master)](https://travis-ci.org/whiteout-io/crypto-lib)
 ==========
 
-A high level crypto module for node.js and the browser. This library exposes a basic high level api, which combines the following low level operations into a few simple steps:
+A high level crypto module for node.js and the browser. This library exposes a basic high level api, which combines the following low level operations:
 
 * UTF-8 plaintext encoding
 * item-key generation
