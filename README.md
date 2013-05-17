@@ -14,7 +14,7 @@ A high level crypto module for node.js and the browser. This library exposes a b
 Peer review and feedback are appreciated!
 
 
-## Usage node.js:
+## Usage Node.js:
 
 	var lib = require('crypto-lib');
 
@@ -36,7 +36,7 @@ Peer review and feedback are appreciated!
 	var decryptedList = lib.cryptoBatch.decryptListForUser(encryptedList);
 
 
-## Usage browser:
+## Usage Browser/PhoneGap:
 
 * Should be used inside of a Web Worker thread to not block the main UI thread.
 * Has been tested to work on iOS, Chrome, Firefox, and Internet Explorer 10.
