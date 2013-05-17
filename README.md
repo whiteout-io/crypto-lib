@@ -40,7 +40,7 @@ Peer review and feedback are appreciated!
 
 * Should be used inside of a Web Worker thread to not block the main UI thread.
 * Has been tested to work on iOS, Chrome, Firefox, and Internet Explorer 10.
-* For browsers that don't support the cryptographically secure RNG window.crypto.getRandomValues(), forge's fortuna algorithm is used to generate pseudo random numbers.
+* For browsers that don't support window.crypto.getRandomValues(), forge's fortuna algorithm is used to generate pseudo random numbers.
 * [This video](http://www.youtube.com/watch?v=WljJ5guzcLs&feature=share&list=PLBNz3Grrh0qUDwpT0G_1zt9n_uOuan920) also gives some good pointer how to secure your HTML5 using CSP, sandboxed iframes and CORS in order to protect against XSS and other attacks.
 
 
