@@ -14,7 +14,7 @@ A high level crypto module for node.js and the browser. This library exposes a b
 Peer review and feedback are appreciated!
 
 
-## Usage (node.js):
+## Usage node.js:
 
 	var lib = require('crypto-lib');
 
