@@ -6,6 +6,9 @@
 		"type": "git",
 		"url": "https://github.com/whiteout-io/crypto-lib.git"
 	},
+	"scripts": {
+		"test": "mocha test"
+	},
 	"engines": {
 		"node": "*"
 	},
