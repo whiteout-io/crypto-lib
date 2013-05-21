@@ -1,5 +1,5 @@
-var lib = require('../index'),
-	assert = require('assert');
+var assert = require('assert'),
+	lib = require('../index');
 
 var lib_test = {
 	aesKeysize: 128,
@@ -7,13 +7,6 @@ var lib_test = {
 };
 
 describe('Crypto Lib Api Test', function() {
-
-	describe("Generate UUID", function() {
-		it('should work', function() {
-			var uuid = lib.util.UUID();
-			assert.ok(uuid);
-		});
-	});
 
 	describe("Generate RSA Keypair", function() {
 		it('return return a valid keypair', function(done) {

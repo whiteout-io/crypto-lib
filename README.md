@@ -14,7 +14,15 @@ A high level crypto module for node.js and the browser. This library exposes a b
 Peer review and feedback are appreciated!
 
 
-## Usage Node.js:
+## Getting started - Node.js
+
+### Install and test:
+
+	npm install https://github.com/whiteout-io/crypto-lib/tarball/master
+	cd node_modules/crypto-lib/
+	npm test
+
+### Code:
 
 	var lib = require('crypto-lib');
 
@@ -36,10 +44,11 @@ Peer review and feedback are appreciated!
 	var decryptedList = lib.cryptoBatch.decryptListForUser(encryptedList);
 
 
-## Usage Browser/PhoneGap:
+## Getting started - HTML5:
 
 * Has been tested to work on iOS, Chrome, Firefox, Safari and Internet Explorer 10.
 * For browsers that don't support window.crypto.getRandomValues(), forge's fortuna algorithm is used to generate pseudo random numbers.
+* There is currently no require.js build for the client yet so you'll have to include the scripts by hands
 * The crypto operations should be done inside of a Web Worker thread to not block the main UI thread.
 * [This video](http://www.youtube.com/watch?v=WljJ5guzcLs&feature=share&list=PLBNz3Grrh0qUDwpT0G_1zt9n_uOuan920) also gives some good pointers on how to secure your HTML5 app using Content Security Policy (CSP), sandboxed iframes and CORS in order to protect against XSS and other attacks.
 
