@@ -7,7 +7,7 @@
 		"url": "https://github.com/whiteout-io/crypto-lib.git"
 	},
 	"scripts": {
-		"test": "mocha -R spec test"
+		"test": "mocha -R spec -t 10000 test/"
 	},
 	"engines": {
 		"node": "*"
