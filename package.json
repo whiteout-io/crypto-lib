@@ -8,8 +8,8 @@
 	},
 	"scripts": {
 		"preinstall": "rm -rf node_modules/",
-		"pretest": "node node_modules/node-forge/minify.rsa.js && mkdir -p test/lib/forge && cp node_modules/node-forge/js/forge.rsa.bundle.js node_modules/node-forge/js/prime.worker.js node_modules/node-forge/js/jsbn.js test/lib/forge && cp node_modules/mocha/mocha.css node_modules/mocha/mocha.js node_modules/chai/chai.js node_modules/node-uuid/uuid.js test/lib",
-		"test": "mocha -R spec -t 10000 test/*-test.js && grunt test"
+		"postinstall": "node node_modules/node-forge/minify.rsa.js && mkdir -p test/lib/forge && cp node_modules/node-forge/js/forge.rsa.bundle.js node_modules/node-forge/js/prime.worker.js node_modules/node-forge/js/jsbn.js test/lib/forge && cp node_modules/mocha/mocha.css node_modules/mocha/mocha.js node_modules/chai/chai.js node_modules/node-uuid/uuid.js test/lib",
+		"test": "mocha -R spec -t 20000 test/*-test.js"
 	},
 	"engines": {
 		"node": "*"
