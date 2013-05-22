@@ -15,7 +15,7 @@
 		"node": "*"
 	},
 	"dependencies": {
-		"node-uuid": "latest",
+		"node-uuid": "~1.4.0",
 		"node-forge": "https://github.com/tanx/forge/tarball/my-bundle"
 	},
 	"devDependencies": {
