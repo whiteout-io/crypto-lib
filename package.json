@@ -1,22 +1,28 @@
 {
 	"name": "crypto-lib",
 	"version": "0.0.1",
-	"main": "index.js",
+	"main": "crypto-lib.js",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/whiteout-io/crypto-lib.git"
 	},
 	"scripts": {
-		"test": "mocha -R spec -t 10000 test/"
+		"preinstall": "rm -rf node_modules/",
+		"pretest": "node node_modules/node-forge/minify.rsa.js && mkdir -p test/lib/forge && cp node_modules/node-forge/js/forge.rsa.bundle.js node_modules/node-forge/js/prime.worker.js node_modules/node-forge/js/jsbn.js test/lib/forge && cp node_modules/mocha/mocha.css node_modules/mocha/mocha.js node_modules/chai/chai.js node_modules/node-uuid/uuid.js test/lib",
+		"test": "mocha -R spec -t 10000 test/*-test.js"
 	},
 	"engines": {
 		"node": "*"
 	},
 	"dependencies": {
 		"node-uuid": "latest",
-		"node-forge": "https://github.com/digitalbazaar/forge/tarball/7b9fd4ce32d57273374e8c443d2e348911e6e78c"
+		"node-forge": "https://github.com/tanx/forge/tarball/my-bundle"
 	},
 	"devDependencies": {
-		"mocha": "latest"
+		"mocha": "~1.10.0",
+		"chai": "~1.6.0",
+		"grunt": "~0.4.1",
+		"grunt-contrib-jshint": "~0.5.3",
+		"grunt-contrib-connect": "~0.3.0"
 	}
 }

@@ -1,5 +1,5 @@
-var assert = require('assert'),
-	lib = require('../index');
+var assert = (typeof chai !== 'undefined') ? chai.assert : require('chai').assert,
+	lib = (typeof cryptoLib !== 'undefined') ? cryptoLib : require('../crypto-lib');
 
 var aes_test = {
 	keySize: 128,

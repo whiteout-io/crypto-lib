@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Mocha Unit Tests</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="lib/mocha.css" />
+    
+    <!-- dependencies -->
+    <script src="lib/mocha.js"></script>
+    <script>mocha.setup('bdd')</script>
+    <script src="lib/chai.js"></script>
+
+    <script src="lib/uuid.js"></script>
+    <script src="lib/forge/forge.rsa.bundle.js"></script>
+
+    <script src="../src/util.js"></script>
+    <script src="../src/aes-cbc.js"></script>
+    <script src="../src/rsa.js"></script>
+    <script src="../src/crypto-batch.js"></script>
+    <script src="../crypto-lib.js"></script>
+
+    <script>
+      var app = {
+        config: {
+          workerPath: '/'
+        }
+      }
+    </script>
+
+    <!-- tests -->
+    <script src="util-test.js"></script>
+    <script src="aes-test.js"></script>
+    <script src="rsa-test.js"></script>
+    <script src="lib-test.js"></script>
+    <script>
+      onload = function(){
+        mocha.run();
+      };
+    </script>
+  </head>
+
+  <body>
+    <div id="mocha"></div>
+  </body>
+</html>
