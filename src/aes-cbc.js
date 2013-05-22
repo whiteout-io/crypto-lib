@@ -49,8 +49,8 @@
 	if (typeof module !== 'undefined' && module.exports) {
 		module.exports = AesCBC;
 	} else {
-		window.cryptoLib = window.cryptoLib || {};
-		window.cryptoLib.AesCBC = AesCBC;
+		cryptoLib = cryptoLib || {};
+		cryptoLib.AesCBC = AesCBC;
 	}
 
 })();

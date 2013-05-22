@@ -201,8 +201,8 @@
 	if (typeof module !== 'undefined' && module.exports) {
 		module.exports = Util;
 	} else {
-		window.cryptoLib = window.cryptoLib || {};
-		window.cryptoLib.Util = Util;
+		cryptoLib = cryptoLib || {};
+		cryptoLib.Util = Util;
 	}
 
 })();

@@ -89,8 +89,8 @@
 	if (typeof module !== 'undefined' && module.exports) {
 		module.exports = CryptoBatch;
 	} else {
-		window.cryptoLib = window.cryptoLib || {};
-		window.cryptoLib.CryptoBatch = CryptoBatch;
+		cryptoLib = cryptoLib || {};
+		cryptoLib.CryptoBatch = CryptoBatch;
 	}
 
 })();
