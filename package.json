@@ -7,7 +7,6 @@
 		"url": "https://github.com/whiteout-io/crypto-lib.git"
 	},
 	"scripts": {
-		"preinstall": "rm -rf ./node_modules/node-forge",
 		"pretest": "node node_modules/node-forge/minify.rsa.js && mkdir -p test/lib/forge && cp node_modules/node-forge/js/forge.rsa.bundle.js node_modules/node-forge/js/prime.worker.js node_modules/node-forge/js/jsbn.js test/lib/forge && cp node_modules/mocha/mocha.css node_modules/mocha/mocha.js node_modules/chai/chai.js node_modules/node-uuid/uuid.js test/lib",
 		"test": "mocha -R spec -t 20000 test/*-test.js && grunt test"
 	},
