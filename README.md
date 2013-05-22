@@ -11,7 +11,7 @@ A high level crypto module for node.js and the browser. This library exposes a b
 * RSA item-key encryption
 * SHA-256 hashing RSA signing of all items
 
-### Checkout the [Demo](http://whiteout-io.github.io/crypto-lib/test/index.html)
+**[Checkout the Demo](http://whiteout-io.github.io/crypto-lib/test/index.html)**
 
 
 ## Getting started - Node.js
