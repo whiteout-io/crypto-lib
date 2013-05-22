@@ -7,6 +7,7 @@ var lib_test = {
 };
 
 describe('Crypto Lib Api Test', function() {
+	this.timeout(20000);
 
 	describe("Generate RSA Keypair", function() {
 		it('return return a valid keypair', function(done) {

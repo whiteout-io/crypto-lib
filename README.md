@@ -46,6 +46,7 @@ Peer review and feedback are appreciated!
 
 ## Getting started - HTML5:
 
+* To get started, check out the mocha browser tests
 * Has been tested to work on iOS, Chrome, Firefox, Safari and Internet Explorer 10.
 * For browsers that don't support window.crypto.getRandomValues(), forge's fortuna algorithm is used to generate pseudo random numbers.
 * There is currently no require.js build for the client yet so you'll have to include the scripts by hands

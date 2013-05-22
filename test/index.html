@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <meta charset="utf-8">
     <title>Mocha Unit Tests</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="lib/mocha.css" />
+  </head>
+
+  <body>
+    <div id="mocha"></div>
     
     <!-- dependencies -->
     <script src="lib/mocha.js"></script>
@@ -26,6 +29,8 @@
           workerPath: '/'
         }
       }
+      // disable web worker
+      window.Worker = undefined;
     </script>
 
     <!-- tests -->
@@ -38,9 +43,5 @@
         mocha.run();
       };
     </script>
-  </head>
-
-  <body>
-    <div id="mocha"></div>
   </body>
 </html>

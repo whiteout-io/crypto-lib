@@ -2,12 +2,13 @@ var assert = (typeof chai !== 'undefined') ? chai.assert : require('chai').asser
 	lib = (typeof cryptoLib !== 'undefined') ? cryptoLib : require('../crypto-lib');
 
 var rsa_test = {
-	keySize: 1024,
+	keySize: 512,
 	rsa: lib.rsa,
 	test_message: '06a9214036b8a15b512e03d534120006'
 };
 
 describe("RSA Crypto", function() {
+	this.timeout(20000);
 
 	describe("Generate keypair", function() {
 		it('should work', function(done) {

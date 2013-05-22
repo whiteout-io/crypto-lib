@@ -9,7 +9,7 @@
 	"scripts": {
 		"preinstall": "rm -rf node_modules/",
 		"pretest": "node node_modules/node-forge/minify.rsa.js && mkdir -p test/lib/forge && cp node_modules/node-forge/js/forge.rsa.bundle.js node_modules/node-forge/js/prime.worker.js node_modules/node-forge/js/jsbn.js test/lib/forge && cp node_modules/mocha/mocha.css node_modules/mocha/mocha.js node_modules/chai/chai.js node_modules/node-uuid/uuid.js test/lib",
-		"test": "mocha -R spec -t 10000 test/*-test.js"
+		"test": "mocha -R spec -t 10000 test/*-test.js && grunt test"
 	},
 	"engines": {
 		"node": "*"
@@ -23,6 +23,7 @@
 		"chai": "~1.6.0",
 		"grunt": "~0.4.1",
 		"grunt-contrib-jshint": "~0.5.3",
-		"grunt-contrib-connect": "~0.3.0"
+		"grunt-contrib-connect": "~0.3.0",
+		"grunt-mocha": "~0.3.1"
 	}
 }
