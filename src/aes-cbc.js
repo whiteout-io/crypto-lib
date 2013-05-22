@@ -49,8 +49,9 @@
 	if (typeof module !== 'undefined' && module.exports) {
 		module.exports = AesCBC;
 	} else {
-		cryptoLib = cryptoLib || {};
-		cryptoLib.AesCBC = AesCBC;
+		var that = (typeof window !== 'undefined') ? window : self;
+		that.cryptoLib = that.cryptoLib || {};
+		that.cryptoLib.AesCBC = AesCBC;
 	}
 
 })();

@@ -201,8 +201,9 @@
 	if (typeof module !== 'undefined' && module.exports) {
 		module.exports = Util;
 	} else {
-		cryptoLib = cryptoLib || {};
-		cryptoLib.Util = Util;
+		var that = (typeof window !== 'undefined') ? window : self;
+		that.cryptoLib = that.cryptoLib || {};
+		that.cryptoLib.Util = Util;
 	}
 
 })();

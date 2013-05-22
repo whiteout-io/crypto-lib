@@ -130,8 +130,9 @@
 	if (typeof module !== 'undefined' && module.exports) {
 		module.exports = RSA;
 	} else {
-		cryptoLib = cryptoLib || {};
-		cryptoLib.RSA = RSA;
+		var that = (typeof window !== 'undefined') ? window : self;
+		that.cryptoLib = that.cryptoLib || {};
+		that.cryptoLib.RSA = RSA;
 	}
 
 })();
