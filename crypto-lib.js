@@ -6,8 +6,6 @@
 (function() {
 	'use strict';
 
-	var RSA, Util, AesCBC, CryptoBatch;
-
 	function initModule(exports, window, crypt, uuid, forge, Util, AesCBC, RSA, CryptoBatch) {
 
 		// create and inject dependecies
@@ -25,15 +23,13 @@
 
 	if (typeof module !== 'undefined' && module.exports) {
 		// define node.js module
-		var crypt, node_uuid, node_forge;
-
-		crypt = require('crypto'),
-		node_uuid = require('node-uuid'),
-		node_forge = require('node-forge'),
-		RSA = require('./src/rsa'),
-		Util = require('./src/util'),
-		AesCBC = require('./src/aes-cbc'),
-		CryptoBatch = require('./src/crypto-batch');
+		var crypt = require('crypto'),
+			node_uuid = require('node-uuid'),
+			node_forge = require('node-forge'),
+			RSA = require('./src/rsa'),
+			Util = require('./src/util'),
+			AesCBC = require('./src/aes-cbc'),
+			CryptoBatch = require('./src/crypto-batch');
 
 		// export public api
 		initModule(module.exports, undefined, crypt, node_uuid, node_forge, Util, AesCBC, RSA, CryptoBatch);
