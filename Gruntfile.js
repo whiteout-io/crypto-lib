@@ -18,11 +18,7 @@ module.exports = function(grunt) {
 
 		mocha: {
 			all: {
-				src: ['test/index.html'],
-				options: {
-					// Select a Mocha reporter - http://visionmedia.github.com/mocha/#reporters
-					reporter: 'Spec'
-				}
+				src: ['test/index.html']
 			}
 		}
 	});
