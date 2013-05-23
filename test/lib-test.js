@@ -27,6 +27,10 @@ describe('Crypto Lib Api Test', function() {
 				publicKey = {
 					_id: exported._id,
 					publicKey: exported.pubkeyPem
+				},
+				privateKey = {
+					_id: exported._id,
+					privateKey: exported.privkeyPem
 				};
 
 			// package into batchable envelope for encryption
@@ -39,16 +43,12 @@ describe('Crypto Lib Api Test', function() {
 			}];
 
 			// encrypt
-			var encryptedList = lib.cryptoBatch.encryptListForUser(envelopes, [publicKey]);
+			var encryptedList = lib.cryptoBatch.encryptListForUser(envelopes, [publicKey], privateKey);
 			assert.ok(encryptedList);
 			assert.equal(encryptedList.length, 1);
 
-			// package into batchable envelope for decryption
-			encryptedList[0].senderPk = encryptedList[0].receiverPk;
-			delete encryptedList[0].receiverPk;
-
 			// decrypt
-			var decryptedList = lib.cryptoBatch.decryptListForUser(encryptedList, [publicKey]);
+			var decryptedList = lib.cryptoBatch.decryptListForUser(encryptedList, [publicKey], privateKey);
 			assert.equal(msg, decryptedList[0]);
 
 		});

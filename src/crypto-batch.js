@@ -37,16 +37,20 @@
 		/**
 		 * Encrypt and sign a list of items using AES and RSA
 		 * @param list [Array] The list of items to encrypt
-		 * @param publicKeys [Array] A list of public keys used to encrypt
+		 * @param receiverPubkeys [Array] A list of public keys used to encrypt
+		 * @param senderPrivkey [Array] The sender's private key used to sign
 		 */
-		this.encryptListForUser = function(list, publicKeys) {
-			// encrypt list
+		this.encryptListForUser = function(list, receiverPubkeys, senderPrivkey) {
+			// encrypt list with aes
 			var encryptedList = this.encryptList(list);
+
+			// set sender private key
+			rsa.init(null, senderPrivkey.privateKey);
 
 			// encrypt keys for user
 			encryptedList.forEach(function(i) {
 				// fetch correct public key
-				var pk = _.findWhere(publicKeys, {
+				var pk = _.findWhere(receiverPubkeys, {
 					_id: i.receiverPk
 				});
 				// set rsa public key used to encrypt
@@ -55,8 +59,10 @@
 				// process new values
 				i.encryptedKey = rsa.encrypt(i.key);
 				i.signature = rsa.sign([i.iv, util.str2Base64(i.id), i.encryptedKey, i.ciphertext]);
+				i.senderPk = senderPrivkey._id;
 				// delete old ones
 				delete i.key;
+				delete i.receiverPk;
 			});
 
 			return encryptedList;
@@ -65,15 +71,19 @@
 		/**
 		 * Decrypt and verify a list of items using AES and RSA
 		 * @param list [Array] The list of items to decrypt
-		 * @param publicKeys [Array] A list of public keys used to encrypt
+		 * @param senderPubkeys [Array] A list of public keys used to verify
+		 * @param receiverPrivkey [Array] The receiver's private key used to decrypt
 		 */
-		this.decryptListForUser = function(encryptedList, publicKeys) {
+		this.decryptListForUser = function(encryptedList, senderPubkeys, receiverPrivkey) {
 			var j, self = this;
+
+			// set receiver private key
+			rsa.init(null, receiverPrivkey.privateKey);
 
 			// decrypt keys for user
 			encryptedList.forEach(function(i) {
 				// fetch correct public key
-				var pk = _.findWhere(publicKeys, {
+				var pk = _.findWhere(senderPubkeys, {
 					_id: i.senderPk
 				});
 				// set rsa public key used to verify
@@ -88,6 +98,7 @@
 				// delete old values
 				delete i.signature;
 				delete i.encryptedKey;
+				delete i.senderPk;
 			});
 
 			// decrypt list
