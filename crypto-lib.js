@@ -6,12 +6,12 @@
 (function() {
 	'use strict';
 
-	function initModule(exports, window, crypt, uuid, forge, Util, AesCBC, RSA, CryptoBatch) {
+	function initModule(exports, window, crypt, uuid, forge, _, Util, AesCBC, RSA, CryptoBatch) {
 		// create and inject dependecies
 		var util = new Util(window, uuid, crypt),
 			rsa = new RSA(forge, util),
 			aes = new AesCBC(forge),
-			cryptoBatch = new CryptoBatch(aes, rsa, util);
+			cryptoBatch = new CryptoBatch(aes, rsa, util, _);
 
 		// export public api
 		exports.util = util;
@@ -25,18 +25,19 @@
 		var crypt = require('crypto'),
 			node_uuid = require('node-uuid'),
 			node_forge = require('node-forge'),
+			node_underscore = require('underscore'),
 			RSA = require('./src/rsa'),
 			Util = require('./src/util'),
 			AesCBC = require('./src/aes-cbc'),
 			CryptoBatch = require('./src/crypto-batch');
 
 		// export public api
-		initModule(module.exports, undefined, crypt, node_uuid, node_forge, Util, AesCBC, RSA, CryptoBatch);
+		initModule(module.exports, undefined, crypt, node_uuid, node_forge, node_underscore, Util, AesCBC, RSA, CryptoBatch);
 
 	} else if (typeof window !== 'undefined') {
 		// define browser module
 		var lib = window.cryptoLib;
-		initModule(lib, window, undefined, uuid, forge, lib.Util, lib.AesCBC, lib.RSA, lib.CryptoBatch);
+		initModule(lib, window, undefined, uuid, forge, _, lib.Util, lib.AesCBC, lib.RSA, lib.CryptoBatch);
 	}
 
 })();

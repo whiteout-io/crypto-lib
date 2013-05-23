@@ -4,11 +4,11 @@
 	/**
 	 * Crypto batch library for processing large sets of data
 	 */
-	var CryptoBatch = function(aes, rsa, util) {
+	var CryptoBatch = function(aes, rsa, util, _) {
 
 		/**
 		 * Encrypt a list of items using AES
-		 * @list list [Array] The list of items to encrypt
+		 * @param list [Array] The list of items to encrypt
 		 */
 		this.encryptList = function(list) {
 			list.forEach(function(i) {
@@ -22,7 +22,7 @@
 
 		/**
 		 * Decrypt a list of items using AES
-		 * @list list [Array] The list of items to decrypt
+		 * @param list [Array] The list of items to decrypt
 		 */
 		this.decryptList = function(list) {
 			list.forEach(function(i) {
@@ -36,14 +36,22 @@
 
 		/**
 		 * Encrypt and sign a list of items using AES and RSA
-		 * @list list [Array] The list of items to encrypt
+		 * @param list [Array] The list of items to encrypt
+		 * @param publicKeys [Array] A list of public keys used to encrypt
 		 */
-		this.encryptListForUser = function(list) {
+		this.encryptListForUser = function(list, publicKeys) {
 			// encrypt list
 			var encryptedList = this.encryptList(list);
 
 			// encrypt keys for user
 			encryptedList.forEach(function(i) {
+				// fetch correct public key
+				var pk = _.findWhere(publicKeys, {
+					_id: i.pkId
+				});
+				// set rsa public key used to encrypt
+				rsa.init(pk.publicKey);
+
 				// process new values
 				i.encryptedKey = rsa.encrypt(i.key);
 				i.signature = rsa.sign([i.iv, util.str2Base64(i.id), i.encryptedKey, i.ciphertext]);
@@ -56,13 +64,21 @@
 
 		/**
 		 * Decrypt and verify a list of items using AES and RSA
-		 * @list list [Array] The list of items to decrypt
+		 * @param list [Array] The list of items to decrypt
+		 * @param publicKeys [Array] A list of public keys used to encrypt
 		 */
-		this.decryptListForUser = function(encryptedList) {
+		this.decryptListForUser = function(encryptedList, publicKeys) {
 			var j, self = this;
 
 			// decrypt keys for user
 			encryptedList.forEach(function(i) {
+				// fetch correct public key
+				var pk = _.findWhere(publicKeys, {
+					_id: i.pkId
+				});
+				// set rsa public key used to verify
+				rsa.init(pk.publicKey);
+
 				// verify signature
 				if (!rsa.verify([i.iv, util.str2Base64(i.id), i.encryptedKey, i.ciphertext], i.signature)) {
 					throw new Error('Verifying RSA signature failed!');

@@ -22,25 +22,29 @@ describe('Crypto Lib Api Test', function() {
 	describe("En/Decrypt for User", function() {
 		it('return decrypt the given plaintext', function() {
 
-			var envelopes = [],
-				msg = 'Hello, World!';
+			var msg = 'Hello, World!',
+				exported = lib.rsa.exportKeys(),
+				publicKey = {
+					_id: exported._id,
+					publicKey: exported.pubkeyPem
+				};
 
 			// package objects into batchable envelope format
-			var envelope = {
+			var envelopes = [{
 				id: lib.util.UUID(),
 				plaintext: msg,
 				key: lib.util.random(lib_test.aesKeysize),
-				iv: lib.util.random(lib_test.aesKeysize)
-			};
-			envelopes.push(envelope);
+				iv: lib.util.random(lib_test.aesKeysize),
+				pkId: publicKey._id
+			}];
 
 			// encrypt
-			var encryptedList = lib.cryptoBatch.encryptListForUser(envelopes);
+			var encryptedList = lib.cryptoBatch.encryptListForUser(envelopes, [publicKey]);
 			assert.ok(encryptedList);
 			assert.equal(encryptedList.length, 1);
 
 			// decrypt
-			var decryptedList = lib.cryptoBatch.decryptListForUser(encryptedList);
+			var decryptedList = lib.cryptoBatch.decryptListForUser(encryptedList, [publicKey]);
 			assert.equal(msg, decryptedList[0]);
 
 		});
