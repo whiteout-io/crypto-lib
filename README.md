@@ -16,9 +16,44 @@ A high level crypto module for node.js and the browser. This library exposes a b
 
 ## Getting started - Node.js
 
+### Install and Test
+
 	npm install https://github.com/whiteout-io/crypto-lib/tarball/master
 	cd node_modules/crypto-lib/
 	npm test
+
+### Example Code
+
+	var lib = require('crypto-lib');
+
+	// generate keypair
+	lib.rsa.generateKeypair(1024, function(err, keypair) {
+
+		var publicKey = {
+				_id: keypair._id,
+				publicKey: keypair.pubkeyPem
+			},
+			privateKey = {
+				_id: keypair._id,
+				privateKey: keypair.privkeyPem
+			};
+
+		// package into batchable envelope for encryption
+		var envelopes = [{
+			id: lib.util.UUID(),
+			plaintext: 'Hello, World!',
+			key: lib.util.random(128),
+			iv: lib.util.random(128),
+			receiverPk: publicKey._id
+		}];
+
+		// encrypt and sign using AES and RSA
+		var encryptedList = lib.cryptoBatch.encryptListForUser(envelopes, [publicKey], privateKey);
+
+		// decrypt and verify using AES and RSA
+		var decryptedList = lib.cryptoBatch.decryptListForUser(encryptedList, [publicKey], privateKey);
+
+	});
 
 
 ## Getting started - HTML5:

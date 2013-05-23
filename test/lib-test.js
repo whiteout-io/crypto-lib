@@ -11,9 +11,9 @@ describe('Crypto Lib Api Test', function() {
 
 	describe("Generate RSA Keypair", function() {
 		it('return return a valid keypair', function(done) {
-			lib.rsa.generateKeypair(lib_test.rsaKeysize, function(err) {
+			lib.rsa.generateKeypair(lib_test.rsaKeysize, function(err, keypair) {
 				assert.ok(!err);
-				assert.ok(lib.rsa.exportKeys().pubkeyPem);
+				assert.ok(keypair.pubkeyPem);
 				done();
 			});
 		});
