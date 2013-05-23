@@ -7,7 +7,6 @@
 	'use strict';
 
 	function initModule(exports, window, crypt, uuid, forge, Util, AesCBC, RSA, CryptoBatch) {
-
 		// create and inject dependecies
 		var util = new Util(window, uuid, crypt),
 			rsa = new RSA(forge, util),
