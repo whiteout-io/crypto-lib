@@ -36,7 +36,7 @@
 
 	} else if (typeof window !== 'undefined') {
 		// define browser module
-		lib = window.cryptoLib;
+		var lib = window.cryptoLib;
 		initModule(lib, window, undefined, uuid, forge, _, lib.Util, lib.AesCBC, lib.RSA, lib.CryptoBatch);
 	}
 
