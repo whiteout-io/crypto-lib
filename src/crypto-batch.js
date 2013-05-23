@@ -47,7 +47,7 @@
 			encryptedList.forEach(function(i) {
 				// fetch correct public key
 				var pk = _.findWhere(publicKeys, {
-					_id: i.pkId
+					_id: i.senderPk
 				});
 				// set rsa public key used to encrypt
 				rsa.init(pk.publicKey);
@@ -74,7 +74,7 @@
 			encryptedList.forEach(function(i) {
 				// fetch correct public key
 				var pk = _.findWhere(publicKeys, {
-					_id: i.pkId
+					_id: i.senderPk
 				});
 				// set rsa public key used to verify
 				rsa.init(pk.publicKey);

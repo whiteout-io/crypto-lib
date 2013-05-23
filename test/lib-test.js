@@ -35,7 +35,7 @@ describe('Crypto Lib Api Test', function() {
 				plaintext: msg,
 				key: lib.util.random(lib_test.aesKeysize),
 				iv: lib.util.random(lib_test.aesKeysize),
-				pkId: publicKey._id
+				senderPk: publicKey._id
 			}];
 
 			// encrypt
