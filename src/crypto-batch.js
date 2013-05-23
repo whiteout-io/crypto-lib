@@ -47,7 +47,7 @@
 			encryptedList.forEach(function(i) {
 				// fetch correct public key
 				var pk = _.findWhere(publicKeys, {
-					_id: i.senderPk
+					_id: i.receiverPk
 				});
 				// set rsa public key used to encrypt
 				rsa.init(pk.publicKey);
@@ -83,7 +83,7 @@
 				if (!rsa.verify([i.iv, util.str2Base64(i.id), i.encryptedKey, i.ciphertext], i.signature)) {
 					throw new Error('Verifying RSA signature failed!');
 				}
-				// precoess new values
+				// process new values
 				i.key = rsa.decrypt(i.encryptedKey);
 				// delete old values
 				delete i.signature;

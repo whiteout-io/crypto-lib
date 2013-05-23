@@ -29,19 +29,23 @@ describe('Crypto Lib Api Test', function() {
 					publicKey: exported.pubkeyPem
 				};
 
-			// package objects into batchable envelope format
+			// package into batchable envelope for encryption
 			var envelopes = [{
 				id: lib.util.UUID(),
 				plaintext: msg,
 				key: lib.util.random(lib_test.aesKeysize),
 				iv: lib.util.random(lib_test.aesKeysize),
-				senderPk: publicKey._id
+				receiverPk: publicKey._id
 			}];
 
 			// encrypt
 			var encryptedList = lib.cryptoBatch.encryptListForUser(envelopes, [publicKey]);
 			assert.ok(encryptedList);
 			assert.equal(encryptedList.length, 1);
+
+			// package into batchable envelope for decryption
+			encryptedList[0].senderPk = encryptedList[0].receiverPk;
+			delete encryptedList[0].receiverPk;
 
 			// decrypt
 			var decryptedList = lib.cryptoBatch.decryptListForUser(encryptedList, [publicKey]);
