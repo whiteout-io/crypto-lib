@@ -1,3 +1,5 @@
+'use strict';
+
 var assert = (typeof chai !== 'undefined') ? chai.assert : require('chai').assert,
 	lib = (typeof cryptoLib !== 'undefined') ? cryptoLib : require('../crypto-lib');
 

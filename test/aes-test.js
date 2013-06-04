@@ -1,20 +1,22 @@
+'use strict';
+
 var assert = (typeof chai !== 'undefined') ? chai.assert : require('chai').assert,
 	lib = (typeof cryptoLib !== 'undefined') ? cryptoLib : require('../crypto-lib');
 
-var aes_test = {
+var aesTest = {
 	keySize: 128,
-	test_message: 'Hello, World!'
+	testMessage: 'Hello, World!'
 };
 
 describe("AES Crypto", function() {
 
 	describe("CBC mode", function() {
 		it('should work', function() {
-			var plaintext = aes_test.test_message;
-			var key = lib.util.random(aes_test.keySize);
-			var iv = lib.util.random(aes_test.keySize);
+			var plaintext = aesTest.testMessage;
+			var key = lib.util.random(aesTest.keySize);
+			var iv = lib.util.random(aesTest.keySize);
 			assert.ok(key, 'Key: ' + key);
-			assert.equal(lib.util.base642Str(key).length * 8, aes_test.keySize, 'Keysize ' + aes_test.keySize);
+			assert.equal(lib.util.base642Str(key).length * 8, aesTest.keySize, 'Keysize ' + aesTest.keySize);
 
 			var ciphertext = lib.aes.encrypt(plaintext, key, iv);
 			assert.ok(ciphertext, 'Ciphertext lenght: ' + ciphertext.length);

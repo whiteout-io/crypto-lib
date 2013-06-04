@@ -13,7 +13,10 @@ module.exports = function(grunt) {
 		},
 
 		jshint: {
-			all: ['Gruntfile.js', 'src/*.js']
+			all: ['Gruntfile.js', 'crypto-lib.js', 'src/**/*.js', 'test/*.js'],
+			options: {
+				jshintrc: '.jshintrc'
+			}
 		},
 
 		mocha: {

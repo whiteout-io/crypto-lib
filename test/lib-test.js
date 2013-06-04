@@ -1,7 +1,9 @@
+'use strict';
+
 var assert = (typeof chai !== 'undefined') ? chai.assert : require('chai').assert,
 	lib = (typeof cryptoLib !== 'undefined') ? cryptoLib : require('../crypto-lib');
 
-var lib_test = {
+var libTest = {
 	aesKeysize: 128,
 	rsaKeysize: 512
 };
@@ -11,7 +13,7 @@ describe('Crypto Lib Api Test', function() {
 
 	describe("Generate RSA Keypair", function() {
 		it('return return a valid keypair', function(done) {
-			lib.rsa.generateKeypair(lib_test.rsaKeysize, function(err, keypair) {
+			lib.rsa.generateKeypair(libTest.rsaKeysize, function(err, keypair) {
 				assert.ok(!err);
 				assert.ok(keypair.pubkeyPem);
 				done();
@@ -35,12 +37,13 @@ describe('Crypto Lib Api Test', function() {
 
 			// package into batchable envelope for encryption
 			var envelopes = [{
-				id: lib.util.UUID(),
-				plaintext: msg,
-				key: lib.util.random(lib_test.aesKeysize),
-				iv: lib.util.random(lib_test.aesKeysize),
-				receiverPk: publicKey._id
-			}];
+					id: lib.util.UUID(),
+					plaintext: msg,
+					key: lib.util.random(libTest.aesKeysize),
+					iv: lib.util.random(libTest.aesKeysize),
+					receiverPk: publicKey._id
+				}
+			];
 
 			// encrypt
 			var encryptedList = lib.cryptoBatch.encryptListForUser(envelopes, [publicKey], privateKey);

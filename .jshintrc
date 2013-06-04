@@ -1,0 +1,42 @@
+{
+	"indent": 4,
+	"strict": true,
+	"globalstrict": true,
+	"jquery": true,
+	"node": true,
+	"browser": true,
+	"camelcase": true,
+	"nonew": true,
+	"curly": true,
+	"eqeqeq": true,
+	"immed": true,
+	"latedef": true,
+	"newcap": true,
+	"regexp": true,
+	"evil": true,
+	"eqnull": true,
+	"expr": true,
+	"trailing": true,
+	"undef": true,
+	"unused": true,
+
+	"predef": [
+			"self",
+			"console",
+			"importScripts",
+			"cryptoLib",
+			"Backbone",
+			"forge",
+			"uuid",
+			"Lawnchair",
+			"_",
+			"process",
+			"describe",
+			"it",
+			"chai"
+	],
+
+	"globals": {
+		"app": true
+	}
+}

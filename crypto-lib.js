@@ -3,6 +3,7 @@
  *
  * Copyright 2013 Whiteout Networks GmbH.
  */
+
 (function() {
 	'use strict';
 
@@ -23,16 +24,16 @@
 	if (typeof module !== 'undefined' && module.exports) {
 		// define node.js module
 		var crypt = require('crypto'),
-			node_uuid = require('node-uuid'),
-			node_forge = require('node-forge'),
-			node_underscore = require('underscore'),
+			nodeUuid = require('node-uuid'),
+			nodeForge = require('node-forge'),
+			nodeUnderscore = require('underscore'),
 			RSA = require('./src/rsa'),
 			Util = require('./src/util'),
 			AesCBC = require('./src/aes-cbc'),
 			CryptoBatch = require('./src/crypto-batch');
 
 		// export public api
-		initModule(module.exports, undefined, crypt, node_uuid, node_forge, node_underscore, Util, AesCBC, RSA, CryptoBatch);
+		initModule(module.exports, undefined, crypt, nodeUuid, nodeForge, nodeUnderscore, Util, AesCBC, RSA, CryptoBatch);
 
 	} else if (typeof window !== 'undefined') {
 		// define browser module
