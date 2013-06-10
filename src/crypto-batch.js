@@ -120,7 +120,7 @@
 
 	if (typeof define !== 'undefined' && define.amd) {
 		// AMD
-		define(['cryptoLib/aes-cbc', 'cryptoLib/rsa', 'cryptoLib/util', 'underscore'], function(aes, rsa, util) {
+		define(['cryptoLib/aes-cbc', 'cryptoLib/rsa', 'cryptoLib/util', 'underscore'], function(aes, rsa, util, _) {
 			return new CryptoBatch(aes, rsa, util, _);
 		});
 	} else if (typeof module !== 'undefined' && module.exports) {

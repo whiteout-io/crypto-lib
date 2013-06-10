@@ -15,6 +15,11 @@ require.config({
 		cryptoLib: '../../src',
 		test: '../',
 		underscore: 'underscore-min'
+	},
+	shim: {
+		underscore: {
+			exports: '_'
+		}
 	}
 });
 
