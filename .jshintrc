@@ -21,19 +21,16 @@
 	"unused": true,
 
 	"predef": [
-			"self",
 			"console",
 			"importScripts",
-			"cryptoLib",
 			"Backbone",
-			"forge",
-			"uuid",
-			"Lawnchair",
+			"mocha",
 			"_",
 			"process",
 			"describe",
 			"it",
-			"chai"
+			"chai",
+			"define"
 	],
 
 	"globals": {

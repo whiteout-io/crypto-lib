@@ -7,38 +7,32 @@
 (function() {
 	'use strict';
 
-	function initModule(exports, window, crypt, uuid, forge, _, Util, AesCBC, RSA, CryptoBatch) {
-		// create and inject dependecies
-		var util = new Util(window, uuid, crypt),
-			rsa = new RSA(forge, util),
-			aes = new AesCBC(forge),
-			cryptoBatch = new CryptoBatch(aes, rsa, util, _);
-
+	function initModule(util, aes, rsa, cryptoBatch) {
 		// export public api
-		exports.util = util;
-		exports.aes = aes;
-		exports.rsa = rsa;
-		exports.cryptoBatch = cryptoBatch;
+		var cryptoLib = {};
+
+		cryptoLib.util = util;
+		cryptoLib.aes = aes;
+		cryptoLib.rsa = rsa;
+		cryptoLib.cryptoBatch = cryptoBatch;
+
+		return cryptoLib;
 	}
 
-	if (typeof module !== 'undefined' && module.exports) {
-		// define node.js module
-		var crypt = require('crypto'),
-			nodeUuid = require('node-uuid'),
-			nodeForge = require('node-forge'),
-			nodeUnderscore = require('underscore'),
-			RSA = require('./src/rsa'),
-			Util = require('./src/util'),
-			AesCBC = require('./src/aes-cbc'),
-			CryptoBatch = require('./src/crypto-batch');
+	if (typeof define !== 'undefined' && define.amd) {
+		// AMD
+		define(['cryptoLib/util', 'cryptoLib/aes-cbc', 'cryptoLib/rsa', 'cryptoLib/crypto-batch'], function(util, aes, rsa, cryptoBatch) {
+			return initModule(util, aes, rsa, cryptoBatch);
+		});
+	} else if (typeof module !== 'undefined' && module.exports) {
+		// node.js
+		var rsa = require('./src/rsa'),
+			util = require('./src/util'),
+			aes = require('./src/aes-cbc'),
+			cryptoBatch = require('./src/crypto-batch');
 
 		// export public api
-		initModule(module.exports, undefined, crypt, nodeUuid, nodeForge, nodeUnderscore, Util, AesCBC, RSA, CryptoBatch);
-
-	} else if (typeof window !== 'undefined') {
-		// define browser module
-		var lib = window.cryptoLib;
-		initModule(lib, window, undefined, uuid, forge, _, lib.Util, lib.AesCBC, lib.RSA, lib.CryptoBatch);
+		module.exports = initModule(util, aes, rsa, cryptoBatch);
 	}
 
 })();

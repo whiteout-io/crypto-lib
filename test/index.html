@@ -6,43 +6,11 @@
     <link rel="stylesheet" href="lib/mocha.css" />
   </head>
 
-  <body>
+  <body>    
     <div id="mocha"></div>
-    
-    <!-- dependencies -->
+
     <script src="lib/mocha.js"></script>
-    <script>mocha.setup('bdd')</script>
-    <script src="lib/chai.js"></script>
+    <script data-main="main.js" src="lib/require.js"></script>
 
-    <script src="lib/uuid.js"></script>
-    <script src="lib/underscore-min.js"></script>    
-    <script src="lib/forge/forge.rsa.bundle.js"></script>
-
-    <script src="../src/util.js"></script>
-    <script src="../src/aes-cbc.js"></script>
-    <script src="../src/rsa.js"></script>
-    <script src="../src/crypto-batch.js"></script>
-    <script src="../crypto-lib.js"></script>
-
-    <script>
-      var app = {
-        config: {
-          workerPath: '/'
-        }
-      }
-      // disable web worker
-      window.Worker = undefined;
-    </script>
-
-    <!-- tests -->
-    <script src="aes-test.js"></script>
-    <script src="rsa-test.js"></script>
-    <script src="util-test.js"></script>
-    <script src="lib-test.js"></script>
-    <script>
-      onload = function(){
-        mocha.run();
-      };
-    </script>
   </body>
 </html>
