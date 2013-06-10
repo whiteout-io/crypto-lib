@@ -23,9 +23,7 @@
 	"predef": [
 			"console",
 			"importScripts",
-			"Backbone",
 			"mocha",
-			"_",
 			"process",
 			"describe",
 			"it",
