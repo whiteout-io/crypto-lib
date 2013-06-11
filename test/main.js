@@ -1,10 +1,5 @@
 'use strict';
 
-window.app = {
-	config: {
-		workerPath: '/'
-	}
-};
 // disable web worker
 window.Worker = undefined;
 
@@ -13,6 +8,7 @@ require.config({
 	baseUrl: 'lib',
 	paths: {
 		cryptoLib: '../../src',
+		js: '../',
 		test: '../',
 		underscore: 'underscore-min'
 	},

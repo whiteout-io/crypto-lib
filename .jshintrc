@@ -30,6 +30,5 @@
 	],
 
 	"globals": {
-		"app": true
 	}
 }
