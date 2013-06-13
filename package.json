@@ -8,7 +8,7 @@
 	},
 	"scripts": {
 		"pretest": "mkdir -p test/lib/ && cp node_modules/node-forge/js/*.js node_modules/mocha/mocha.css node_modules/mocha/mocha.js node_modules/chai/chai.js node_modules/node-uuid/uuid.js node_modules/underscore/underscore-min.js test/lib",
-		"test": "mocha test/*-test.js && grunt test"
+		"test": "grunt test && mocha test/*-test.js"
 	},
 	"engines": {
 		"node": "*"
