@@ -116,7 +116,7 @@ function doTests(assert, lib) {
 				var encryptedKeyList = lib.cryptoBatch.reencryptListKeysForUser(encryptedList, [publicKey], privateKey, aesKey);
 				// decryp keys and items symmetrically
 				var decryptedList = lib.cryptoBatch.decryptKeysAndList(encryptedKeyList, aesKey);
-				assert.equal(msg, decryptedList[0].plaintext);
+				assert.equal(msg, decryptedList[0]);
 
 			});
 		});

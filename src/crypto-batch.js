@@ -176,7 +176,8 @@
 		 * @param symKey [String] The symmetric key used to re-encrypt the item key
 		 */
 		this.decryptKeysAndList = function(list, symKey) {
-			var self = this;
+			var self = this,
+				j;
 
 			list.forEach(function(i) {
 				// decrypt item key
@@ -186,6 +187,11 @@
 
 				delete i.encryptedKey;
 			});
+
+			// set plaintext as list item
+			for (j = 0; j < list.length; j++) {
+				list[j] = list[j].plaintext;
+			}
 
 			return list;
 		};
