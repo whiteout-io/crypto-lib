@@ -36,12 +36,12 @@ function doTests(assert, lib) {
 				};
 
 				// encrypt
-				lib.cryptoBatch.encryptItemForUser(envelope, exported.pubkeyPem, exported._id);
+				var encryptedItem = lib.cryptoBatch.encryptItemForUser(envelope, exported.pubkeyPem, exported._id);
 				assert.ok(envelope.ciphertext);
 
 				// decrypt
-				lib.cryptoBatch.decryptItemForUser(envelope, exported.pubkeyPem, exported._id);
-				assert.equal(msg, envelope.plaintext);
+				var decryptedItem = lib.cryptoBatch.decryptItemForUser(encryptedItem, exported.pubkeyPem, exported._id);
+				assert.equal(msg, decryptedItem.plaintext);
 
 			});
 		});
@@ -112,9 +112,9 @@ function doTests(assert, lib) {
 				assert.equal(encryptedList.length, 1);
 
 				// decrypt
-				lib.cryptoBatch.decryptListKeysForUser(encryptedList, [publicKey], privateKey);
-				lib.cryptoBatch.decryptList(encryptedList);
-				assert.equal(msg, encryptedList[0].plaintext);
+				var encryptedKeyList = lib.cryptoBatch.decryptListKeysForUser(encryptedList, [publicKey], privateKey);
+				var decryptedList = lib.cryptoBatch.decryptList(encryptedKeyList);
+				assert.equal(msg, decryptedList[0].plaintext);
 
 			});
 		});
