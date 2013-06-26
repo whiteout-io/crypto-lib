@@ -94,7 +94,8 @@ function doTests(assert, lib) {
 					privateKey = {
 						_id: exported._id,
 						privateKey: exported.privkeyPem
-					};
+					},
+					aesKey = lib.util.random(libTest.aesKeysize);
 
 				// package into batchable envelope for encryption
 				var envelopes = [{
@@ -111,9 +112,10 @@ function doTests(assert, lib) {
 				assert.ok(encryptedList);
 				assert.equal(encryptedList.length, 1);
 
-				// decrypt
-				var encryptedKeyList = lib.cryptoBatch.decryptListKeysForUser(encryptedList, [publicKey], privateKey);
-				var decryptedList = lib.cryptoBatch.decryptList(encryptedKeyList);
+				// re-encrypt item keys
+				var encryptedKeyList = lib.cryptoBatch.reencryptListKeysForUser(encryptedList, [publicKey], privateKey, aesKey);
+				// decryp keys and items symmetrically
+				var decryptedList = lib.cryptoBatch.decryptKeysAndList(encryptedKeyList, aesKey);
 				assert.equal(msg, decryptedList[0].plaintext);
 
 			});
