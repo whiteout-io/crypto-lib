@@ -1,6 +1,6 @@
 #!/bin/sh
 
-echo "--> copying dependencies to src\n"
+echo "--> copying dependencies to test/lib\n"
 
 # go to root
 cd `dirname $0`
