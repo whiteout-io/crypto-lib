@@ -7,7 +7,7 @@
 		"url": "https://github.com/whiteout-io/crypto-lib.git"
 	},
 	"scripts": {
-		"pretest": "mkdir -p test/lib/ && cp node_modules/node-forge/js/*.js node_modules/mocha/mocha.css node_modules/mocha/mocha.js node_modules/chai/chai.js node_modules/node-uuid/uuid.js node_modules/underscore/underscore-min.js test/lib",
+		"pretest": "./res/copy-deps.sh",
 		"test": "grunt test && mocha test/*-test.js"
 	},
 	"engines": {
@@ -17,7 +17,7 @@
 		"requirejs": "~2.1.6",
 		"node-uuid": "~1.4.0",
 		"underscore": "~1.4.4",
-		"node-forge": "https://github.com/tanx/forge/tarball/my-bundle"
+		"node-forge": "~0.1.14"
 	},
 	"devDependencies": {
 		"mocha": "~1.10.0",
