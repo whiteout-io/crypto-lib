@@ -8,8 +8,6 @@ function doTests(assert, rsa, util) {
 		testMessage: '06a9214036b8a15b512e03d534120006'
 	};
 
-	process.exit(1);
-
 	describe("RSA Crypto", function() {
 		this.timeout(20000);
 
