@@ -43,6 +43,33 @@ function doTests(assert, util) {
 				assert.equal(binStr, input);
 			});
 		});
+
+		describe("validateEmailAddress", function() {
+			it('should work', function() {
+				var input = "test@example.com";
+				var res = util.validateEmailAddress(input);
+				assert.ok(res);
+			});
+
+			it('should fail', function() {
+				var input = "testexample.com";
+				var res = util.validateEmailAddress(input);
+				assert.ok(!res);
+			});
+
+			it('should fail', function() {
+				var input = "test@examplecom";
+				var res = util.validateEmailAddress(input);
+				assert.ok(!res);
+			});
+
+			it('should fail', function() {
+				var input = "testexamplecom";
+				var res = util.validateEmailAddress(input);
+				assert.ok(!res);
+			});
+		});
+
 	});
 }
 
