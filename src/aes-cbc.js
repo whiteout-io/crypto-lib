@@ -8,7 +8,6 @@
         this._forge = forge;
     };
 
-
     /**
      * Encrypt a String using AES-CBC-Pkcs7 using the provided keysize (e.g. 128, 256)
      * @param plaintext [String] The input string in UTF-16
