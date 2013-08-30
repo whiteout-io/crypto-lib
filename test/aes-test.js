@@ -25,6 +25,64 @@ function doTests(assert, aes, util) {
 			});
 		});
 
+		describe("HMAC using SHA-256", function() {
+			it('1 KB part should work', function() {
+				var input = util.random(1024 * 8);
+				var key = util.random(aesTest.keySize);
+				assert.ok(input, 'Input: ' + input);
+				assert.ok(key, 'Key: ' + key);
+				assert.equal(util.base642Str(key).length * 8, aesTest.keySize, 'Keysize ' + aesTest.keySize);
+
+				var hmac1 = aes.hmac([input], key);
+				var hmac2 = aes.hmac([input], key);
+				assert.ok(hmac1, 'Hmac: ' + hmac1);
+				assert.ok(hmac2, 'Hmac: ' + hmac2);
+				assert.equal(hmac1, hmac2);
+			});
+
+			it('10 * 1 KB part should work', function() {
+				var parts1 = [],
+					parts2 = [],
+					input;
+				for (var i = 0; i < 10; i++) {
+					input = util.random(1024 * 8);
+					parts1.push(input);
+					parts2.push(input);
+				}
+				var key = util.random(aesTest.keySize);
+				assert.ok(parts1[0], 'Input: ' + parts1[0]);
+				assert.ok(parts2[0], 'Input: ' + parts2[0]);
+				assert.ok(key, 'Key: ' + key);
+				assert.equal(util.base642Str(key).length * 8, aesTest.keySize, 'Keysize ' + aesTest.keySize);
+
+				var hmac1 = aes.hmac(parts1, key);
+				var hmac2 = aes.hmac(parts2, key);
+				assert.ok(hmac1, 'Hmac: ' + hmac1);
+				assert.ok(hmac2, 'Hmac: ' + hmac2);
+				assert.equal(hmac1, hmac2);
+			});
+
+			it('10 * 1 KB part should fail', function() {
+				var parts1 = [],
+					parts2 = [];
+				for (var i = 0; i < 10; i++) {
+					parts1.push(util.random(1024 * 8));
+					parts2.push(util.random(1024 * 8));
+				}
+				var key = util.random(aesTest.keySize);
+				assert.ok(parts1[0], 'Input: ' + parts1[0]);
+				assert.ok(parts2[0], 'Input: ' + parts2[0]);
+				assert.ok(key, 'Key: ' + key);
+				assert.equal(util.base642Str(key).length * 8, aesTest.keySize, 'Keysize ' + aesTest.keySize);
+
+				var hmac1 = aes.hmac(parts1, key);
+				var hmac2 = aes.hmac(parts2, key);
+				assert.ok(hmac1, 'Hmac: ' + hmac1);
+				assert.ok(hmac2, 'Hmac: ' + hmac2);
+				assert.ok(hmac1 !== hmac2);
+			});
+		});
+
 	});
 }
 
