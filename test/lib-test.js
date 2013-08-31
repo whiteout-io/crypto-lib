@@ -62,18 +62,27 @@ function doTests(assert, lib) {
 
 				// package into batchable envelope for encryption
 				var envelopes = [{
-						id: lib.util.UUID(),
-						plaintext: msg,
-						key: lib.util.random(libTest.aesKeysize),
-						iv: lib.util.random(libTest.aesKeysize),
-						receiverPk: publicKey._id
-					}
-				];
+					id: lib.util.UUID(),
+					plaintext: msg,
+					key: lib.util.random(libTest.aesKeysize),
+					iv: lib.util.random(libTest.aesKeysize),
+					receiverPk: publicKey._id
+				}];
 
 				// encrypt
 				var encryptedList = lib.cryptoBatch.encryptListForUser(envelopes, [publicKey], privateKey);
-				assert.ok(encryptedList);
 				assert.equal(encryptedList.length, 1);
+				var encryptedItem = encryptedList[0];
+				assert.ok(encryptedItem);
+				assert.ok(encryptedItem.id);
+				assert.ok(encryptedItem.ciphertext);
+				assert.ok(encryptedItem.iv);
+				assert.ok(encryptedItem.encryptedKey);
+				assert.ok(encryptedItem.senderPk);
+				assert.ok(encryptedItem.signature);
+				assert.ok(!encryptedItem.plaintext);
+				assert.ok(!encryptedItem.key);
+				assert.ok(!encryptedItem.receiverPk);
 
 				// decrypt
 				var decryptedList = lib.cryptoBatch.decryptListForUser(encryptedList, [publicKey], privateKey);
@@ -99,13 +108,12 @@ function doTests(assert, lib) {
 
 				// package into batchable envelope for encryption
 				var envelopes = [{
-						id: lib.util.UUID(),
-						plaintext: msg,
-						key: lib.util.random(libTest.aesKeysize),
-						iv: lib.util.random(libTest.aesKeysize),
-						receiverPk: publicKey._id
-					}
-				];
+					id: lib.util.UUID(),
+					plaintext: msg,
+					key: lib.util.random(libTest.aesKeysize),
+					iv: lib.util.random(libTest.aesKeysize),
+					receiverPk: publicKey._id
+				}];
 
 				// encrypt
 				var encryptedList = lib.cryptoBatch.encryptListForUser(envelopes, [publicKey], privateKey);
