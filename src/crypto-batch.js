@@ -16,16 +16,43 @@
     //
 
     /**
+     * Encrypt and sign a list of items using AES and RSA
+     * @param list [Array] The list of items to encrypt
+     * @param receiverPubkeys [Array] A list of public keys used to encrypt
+     * @param senderPrivkey [Array] The sender's private key used to sign
+     */
+    CryptoBatch.prototype.encryptListForUser = function(list, receiverPubkeys, senderPrivkey) {
+        var receiverPk,
+            self = this;
+
+        // encrypt a list of items
+        self.encryptList(list);
+
+        // set sender private key
+        self._rsa.init(null, senderPrivkey.privateKey);
+
+        list.forEach(function(i) {
+            // fetch correct public key for encryption
+            receiverPk = null;
+            receiverPk = self.__.findWhere(receiverPubkeys, {
+                _id: i.receiverPk
+            });
+
+            // encrypt item for user
+            self.encryptItemKeyForUser(i, receiverPk.publicKey, senderPrivkey._id);
+        });
+
+        return list;
+    };
+
+    /**
      * Encrypt and sign an item using AES and RSA
      * @param i [Object] The item to encrypt
      * @param receiverPubkey [String] The public key used to encrypt
      * @param senderKeyId [String] The sender's private key ID used to sign
      */
-    CryptoBatch.prototype.encryptItemForUser = function(i, receiverPubkey, senderKeyId) {
+    CryptoBatch.prototype.encryptItemKeyForUser = function(i, receiverPubkey, senderKeyId) {
         var self = this;
-
-        // stringify to JSON before symmetric encryption
-        self.encryptItem(i);
 
         // set rsa public key used to encrypt
         self._rsa.init(receiverPubkey);
@@ -43,53 +70,9 @@
         return i;
     };
 
-    /**
-     * Encrypt and sign a list of items using AES and RSA
-     * @param list [Array] The list of items to encrypt
-     * @param receiverPubkeys [Array] A list of public keys used to encrypt
-     * @param senderPrivkey [Array] The sender's private key used to sign
-     */
-    CryptoBatch.prototype.encryptListForUser = function(list, receiverPubkeys, senderPrivkey) {
-        var receiverPk,
-            self = this;
-
-        // set sender private key
-        self._rsa.init(null, senderPrivkey.privateKey);
-
-        list.forEach(function(i) {
-            // fetch correct public key for encryption
-            receiverPk = null;
-            receiverPk = self.__.findWhere(receiverPubkeys, {
-                _id: i.receiverPk
-            });
-
-            // encrypt item for user
-            self.encryptItemForUser(i, receiverPk.publicKey, senderPrivkey._id);
-        });
-
-        return list;
-    };
-
     //
     // Decrypt batch for user AES/RSA
     //
-
-    /**
-     * Decrypt and verify an item using AES and RSA
-     * @param i [Object] The item to decrypt
-     * @param senderPubkey [String] A public key used to verify
-     */
-    CryptoBatch.prototype.decryptItemForUser = function(i, senderPubkey) {
-        var self = this;
-
-        // verfiy signature and decrypt item key
-        self.decryptItemKeyForUser(i, senderPubkey);
-
-        // symmetrically decrypt JSON and parse to object literal
-        self.decryptItem(i);
-
-        return i;
-    };
 
     /**
      * Decrypt and verify a list of items using AES and RSA
@@ -112,36 +95,6 @@
         }
 
         return list;
-    };
-
-    //
-    // Reencrypt batch for user AES/RSA
-    //
-
-    /**
-     * Verfiy an item and decrypt its item key using RSA
-     * @param i [Object] The item to decrypt
-     * @param senderPubkey [String] A public key used to verify
-     */
-    CryptoBatch.prototype.decryptItemKeyForUser = function(i, senderPubkey) {
-        var self = this;
-
-        // set rsa public key used to verify
-        self._rsa.init(senderPubkey);
-
-        // verify signature
-        if (!self._rsa.verify([i.iv, self._util.str2Base64(i.senderPk), i.encryptedKey, i.ciphertext], i.signature)) {
-            throw new Error('Verifying RSA signature failed!');
-        }
-        // decrypt symmetric item key for user
-        i.key = self._rsa.decrypt(i.encryptedKey);
-
-        // delete ciphertext values
-        delete i.signature;
-        delete i.encryptedKey;
-        delete i.senderPk;
-
-        return i;
     };
 
     /**
@@ -170,6 +123,161 @@
 
         return list;
     };
+
+    /**
+     * Verfiy an item and decrypt its item key using RSA
+     * @param i [Object] The item to decrypt
+     * @param senderPubkey [String] A public key used to verify
+     */
+    CryptoBatch.prototype.decryptItemKeyForUser = function(i, senderPubkey) {
+        var self = this;
+
+        // set rsa public key used to verify
+        self._rsa.init(senderPubkey);
+
+        // verify signature
+        if (!self._rsa.verify([i.iv, self._util.str2Base64(i.senderPk), i.encryptedKey, i.ciphertext], i.signature)) {
+            throw new Error('Verifying RSA signature failed!');
+        }
+        // decrypt symmetric item key for user
+        i.key = self._rsa.decrypt(i.encryptedKey);
+
+        // delete ciphertext values
+        delete i.signature;
+        delete i.encryptedKey;
+        delete i.senderPk;
+
+        return i;
+    };
+
+    //
+    // Encrypt batch AES
+    //
+
+    /**
+     * Encrypt an item using AES
+     * @param i [Object] The item to encrypt
+     */
+    CryptoBatch.prototype.encryptItem = function(i) {
+        var self = this;
+
+        // stringify to JSON before symmetric encryption
+        i.ciphertext = self._aes.encrypt(JSON.stringify(i.plaintext), i.key, i.iv);
+
+        // delete plaintext values
+        delete i.plaintext;
+
+        return i;
+    };
+
+    /**
+     * Encrypt a list of items using AES
+     * @param i [Object] The item to encrypt
+     */
+    CryptoBatch.prototype.encryptList = function(list) {
+        var self = this;
+
+        list.forEach(function(i) {
+            // encrypt item
+            self.encryptItem(i);
+        });
+
+        return list;
+    };
+
+    /**
+     * Encrypt a list of items using AES and hash using HMAC
+     * @param i [Object] The item to encrypt
+     */
+    CryptoBatch.prototype.authEncryptList = function(list) {
+        var self = this;
+
+        self.encryptList(list);
+
+        list.forEach(function(i) {
+            // calculate hmac of iv and ciphertext using key
+            i.hmac = self._aes.hmac([i.iv, i.ciphertext], i.key);
+
+            // delete symmetric key on each item
+            delete i.key;
+        });
+
+        return list;
+    };
+
+    //
+    // Decrypt batch AES
+    //
+
+    /**
+     * Decrypt an item using AES
+     * @param i [Object] The item to decrypt
+     */
+    CryptoBatch.prototype.decryptItem = function(i) {
+        var self = this;
+
+        // symmetrically decrypt JSON and parse to object literal
+        i.plaintext = JSON.parse(self._aes.decrypt(i.ciphertext, i.key, i.iv));
+
+        // delete ciphertext values
+        delete i.ciphertext;
+
+        return i;
+    };
+
+    /**
+     * Decrypt a list of items using AES
+     * @param i [Object] The item to decrypt
+     */
+    CryptoBatch.prototype.decryptList = function(list) {
+        var self = this;
+
+        list.forEach(function(i) {
+            // decrypt item
+            self.decryptItem(i);
+        });
+
+        return list;
+    };
+
+    /**
+     * Encrypt a list of items using AES and verfiy using HMAC
+     * @param i [Object] The item to decrypt
+     */
+    CryptoBatch.prototype.authDecryptList = function(list, keys) {
+        var self = this,
+            i, len, calculated, j;
+
+        for (i = 0, len = list.length; i < len; i++) {
+            // validate presence of args
+            if (!list[i].hmac || !list[i].iv || !list[i].ciphertext || !keys[i]) {
+                throw new Error('Arguments for hmac verification missing!');
+            }
+
+            // verify hmac of each item
+            calculated = self._aes.hmac([list[i].iv, list[i].ciphertext], keys[i]);
+            if (list[i].hmac !== calculated) {
+                throw new Error('Hmac verification failed!');
+            }
+
+            // set key property for batch decryption
+            list[i].key = keys[i];
+        }
+
+        // decrypt lsit using aes
+        self.decryptList(list);
+
+        // set plaintext as list item
+        for (j = 0; j < list.length; j++) {
+            list[j] = list[j].plaintext;
+        }
+
+        return list;
+    };
+
+    //
+    // Reencrypt batch for user AES/RSA
+    //
 
     /**
      * Decrypt a list of item keys using RSA and the encrypt them again using AES
@@ -216,61 +324,6 @@
         for (j = 0; j < list.length; j++) {
             list[j] = list[j].plaintext;
         }
-
-        return list;
-    };
-
-    //
-    // Encrypt batch AES
-    //
-
-    /**
-     * Encrypt an item using AES
-     * @param i [Object] The item to encrypt
-     */
-    CryptoBatch.prototype.encryptItem = function(i) {
-        var self = this;
-
-        // stringify to JSON before symmetric encryption
-        i.ciphertext = self._aes.encrypt(JSON.stringify(i.plaintext), i.key, i.iv);
-
-        // delete plaintext values
-        delete i.plaintext;
-
-        return i;
-    };
-
-    //
-    // Decrypt batch AES
-    //
-
-    /**
-     * Decrypt an item using AES
-     * @param i [Object] The item to decrypt
-     */
-    CryptoBatch.prototype.decryptItem = function(i) {
-        var self = this;
-
-        // symmetrically decrypt JSON and parse to object literal
-        i.plaintext = JSON.parse(self._aes.decrypt(i.ciphertext, i.key, i.iv));
-
-        // delete ciphertext values
-        delete i.ciphertext;
-
-        return i;
-    };
-
-    /**
-     * Decrypt a list of items using AES
-     * @param i [Object] The item to decrypt
-     */
-    CryptoBatch.prototype.decryptList = function(list) {
-        var self = this;
-
-        list.forEach(function(i) {
-            // decrypt item for user
-            self.decryptItem(i);
-        });
 
         return list;
     };
