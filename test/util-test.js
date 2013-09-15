@@ -70,6 +70,28 @@ function doTests(assert, util) {
 			});
 		});
 
+		describe("Base64 conversion", function() {
+			it('should work', function() {
+				var input = "asdf";
+				var outout = util.str2Base64(input);
+				assert.equal(outout, 'YXNkZg==');
+
+				var back = util.base642Str(outout);
+				assert.equal(input, back);
+			});
+		});
+
+		describe("UTF-8/UTF-16 conversion", function() {
+			it('should work', function() {
+				var input = '✓ à la mode';
+				var outout = util.encodeUtf8(input);
+				assert.ok(outout);
+
+				var back = util.decodeUtf8(outout);
+				assert.equal(input, back);
+			});
+		});
+
 	});
 }
 
