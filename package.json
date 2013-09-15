@@ -14,10 +14,10 @@
 		"node": "*"
 	},
 	"dependencies": {
-		"requirejs": "~2.1.6",
-		"node-uuid": "~1.4.0",
-		"underscore": "~1.4.4",
-		"node-forge": "~0.2.6"
+		"requirejs": "2.1.8",
+		"node-uuid": "1.4.1",
+		"underscore": "1.4.4",
+		"node-forge": "0.2.6"
 	},
 	"devDependencies": {
 		"grunt": "0.4.1",
