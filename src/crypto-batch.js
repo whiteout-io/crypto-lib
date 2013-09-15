@@ -61,7 +61,7 @@
         // set sender's keypair id for later verification
         i.senderPk = senderKeyId;
         // sign the bundle
-        i.signature = self._rsa.sign([i.iv, self._util.str2Base64(i.senderPk), i.encryptedKey, i.ciphertext]);
+        i.signature = self._rsa.sign([i.iv, i.ciphertext]);
 
         // delete plaintext values
         delete i.key;
@@ -136,7 +136,7 @@
         self._rsa.init(senderPubkey);
 
         // verify signature
-        if (!self._rsa.verify([i.iv, self._util.str2Base64(i.senderPk), i.encryptedKey, i.ciphertext], i.signature)) {
+        if (!self._rsa.verify([i.iv, i.ciphertext], i.signature)) {
             throw new Error('Verifying RSA signature failed!');
         }
         // decrypt symmetric item key for user
