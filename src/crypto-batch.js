@@ -25,6 +25,11 @@
         var receiverPk,
             self = this;
 
+        // validate presence of args
+        if (!list || !receiverPubkeys || !senderPrivkey || !senderPrivkey._id || !senderPrivkey.privateKey) {
+            throw new Error('Arguments missing!');
+        }
+
         // encrypt a list of items
         self.encryptList(list);
 
@@ -37,6 +42,11 @@
             receiverPk = self.__.findWhere(receiverPubkeys, {
                 _id: i.receiverPk
             });
+
+            // validate presence of args
+            if (!receiverPk || !receiverPk.publicKey || !i.key || !i.iv || !i.ciphertext) {
+                throw new Error('Arguments missing!');
+            }
 
             // encrypt item for user
             self.encryptItemKeyForUser(i, receiverPk.publicKey, senderPrivkey._id);
@@ -83,6 +93,11 @@
     CryptoBatch.prototype.decryptListForUser = function(list, senderPubkeys, receiverPrivkey) {
         var j;
 
+        // validate presence of args
+        if (!list || !senderPubkeys || !receiverPrivkey || !receiverPrivkey._id || !receiverPrivkey.privateKey) {
+            throw new Error('Arguments missing!');
+        }
+
         // verify and decrypt a list of items using RSA
         this.decryptListKeysForUser(list, senderPubkeys, receiverPrivkey);
 
@@ -116,6 +131,11 @@
             senderPk = self.__.findWhere(senderPubkeys, {
                 _id: i.senderPk
             });
+
+            // validate presence of args
+            if (!senderPk || !senderPk.publicKey || !i.encryptedKey || !i.iv || !i.ciphertext) {
+                throw new Error('Arguments missing!');
+            }
 
             // decrypt item for user
             self.decryptItemKeyForUser(i, senderPk.publicKey);

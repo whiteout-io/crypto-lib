@@ -40,7 +40,6 @@ A high level crypto module for node.js and the browser. This library exposes a b
 
 		// package into batchable envelope for encryption
 		var envelopes = [{
-			id: lib.util.UUID(),
 			plaintext: 'Hello, World!',
 			key: lib.util.random(128),
 			iv: lib.util.random(128),
