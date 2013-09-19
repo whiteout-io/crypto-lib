@@ -10,7 +10,8 @@ require.config({
 		cryptoLib: '../../src',
 		js: '../',
 		test: '../',
-		underscore: 'underscore-min'
+		underscore: 'underscore-min',
+		'node-forge': 'forge'
 	},
 	shim: {
 		underscore: {
