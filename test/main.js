@@ -1,8 +1,5 @@
 'use strict';
 
-// disable web worker
-window.Worker = undefined;
-
 // get require.js deps
 require.config({
 	baseUrl: 'lib',
@@ -11,11 +8,14 @@ require.config({
 		js: '../',
 		test: '../',
 		underscore: 'underscore-min',
-		'node-forge': 'forge'
+		forge: 'forge.min'
 	},
 	shim: {
 		underscore: {
 			exports: '_'
+		},
+		forge: {
+			exports: 'forge'
 		}
 	}
 });

@@ -7,7 +7,6 @@ cd `dirname $0`
 cd ..
 
 mkdir -p test/lib/
-cp node_modules/node-forge/js/*.js test/lib
 cp node_modules/mocha/mocha.css node_modules/mocha/mocha.js test/lib
 cp node_modules/chai/chai.js test/lib
 cp node_modules/node-uuid/uuid.js test/lib

@@ -80,7 +80,7 @@
 
     if (typeof define !== 'undefined' && define.amd) {
         // AMD
-        define(['node-forge'], function(forge) {
+        define(['forge'], function(forge) {
             return new AesCBC(forge);
         });
     } else if (typeof module !== 'undefined' && module.exports) {

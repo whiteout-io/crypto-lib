@@ -1,6 +1,6 @@
 {
 	"name": "crypto-lib",
-	"version": "0.0.1",
+	"version": "0.1.1",
 	"main": "crypto-lib.js",
 	"repository": {
 		"type": "git",
@@ -20,12 +20,11 @@
 		"node-forge": "~0.2.27"
 	},
 	"devDependencies": {
-		"grunt": "0.4.1",
-		"mocha": "1.13.0",
-		"chai": "1.7.2",
-		"phantomjs": "1.9.1-9",
-		"grunt-contrib-jshint": "0.6.4",
+		"grunt": "~0.4.1",
+		"mocha": "~1.13.0",
+		"chai": "~1.7.2",
+		"grunt-contrib-jshint": "~0.6.4",
 		"grunt-contrib-connect": "0.5.0",
-		"grunt-mocha": "0.4.1"
+		"grunt-mocha": "~0.4.1"
 	}
 }
