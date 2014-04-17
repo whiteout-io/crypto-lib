@@ -21,18 +21,31 @@ module.exports = function(grunt) {
 
 		mocha: {
 			all: {
-				src: ['test/index.html']
+				src: ['test/index.html'],
+				options: {
+					reporter: 'Spec'
+				}
 			}
-		}
+		},
+
+		mochaTest: {
+			all: {
+				options: {
+					reporter: 'spec'
+				},
+				src: ['test/*-test.js']
+			}
+		},
 	});
 
 	// Load the plugin(s)
 	grunt.loadNpmTasks('grunt-contrib-connect');
 	grunt.loadNpmTasks('grunt-contrib-jshint');
 	grunt.loadNpmTasks('grunt-mocha');
+	grunt.loadNpmTasks('grunt-mocha-test');
 
 	// Default task(s).
 	grunt.registerTask('dev', ['connect:test:keepalive']);
-	grunt.registerTask('test', ['jshint', 'mocha']);
+	grunt.registerTask('test', ['jshint', 'mocha', 'mochaTest']);
 
 };
