@@ -6,10 +6,8 @@ A high level crypto module for node.js and the browser. This library exposes a b
 * UTF-8 plaintext encoding
 * item-key generation
 * initialization-vector generation
-* AES-CBC item encryption
+* AES-GCM item encryption
 * Base64 ciphertext encoding
-* RSA item-key encryption
-* SHA-256 hashing and RSA signing
 
 **[Checkout the Demo](http://whiteout-io.github.io/crypto-lib/test/index.html)**
 
@@ -26,33 +24,11 @@ A high level crypto module for node.js and the browser. This library exposes a b
 
 	var lib = require('crypto-lib');
 
-	// generate keypair
-	lib.rsa.generateKeypair(1024, function(err, keypair) {
+	var key = lib.util.random(128);
+	var iv = lib.util.random(128);
 
-		var publicKey = {
-				_id: keypair._id,
-				publicKey: keypair.pubkeyPem
-			},
-			privateKey = {
-				_id: keypair._id,
-				privateKey: keypair.privkeyPem
-			};
-
-		// package into batchable envelope for encryption
-		var envelopes = [{
-			plaintext: 'Hello, World!',
-			key: lib.util.random(128),
-			iv: lib.util.random(128),
-			receiverPk: publicKey._id
-		}];
-
-		// encrypt and sign using AES and RSA
-		var encryptedList = lib.cryptoBatch.encryptListForUser(envelopes, [publicKey], privateKey);
-
-		// decrypt and verify using AES and RSA
-		var decryptedList = lib.cryptoBatch.decryptListForUser(encryptedList, [publicKey], privateKey);
-
-	});
+	var ciphertext = lib.aes.encrypt('Hello, World!', key, iv);
+	var decrypted = lib.aes.decrypt(ciphertext, key, iv);
 
 
 ## Getting started - HTML5:

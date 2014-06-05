@@ -18,17 +18,15 @@
 	"undef": true,
 	"unused": true,
 
-	"predef": [
-			"console",
-			"importScripts",
-			"mocha",
-			"process",
-			"describe",
-			"it",
-			"chai",
-			"define"
-	],
-
 	"globals": {
+		"console": true,
+		"define": true,
+		"describe": true,
+		"it": true,
+        "beforeEach": true,
+        "afterEach": true,
+        "window": true,
+        "mocha": true,
+        "mochaPhantomJS": true
 	}
 }

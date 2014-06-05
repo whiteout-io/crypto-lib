@@ -24,13 +24,9 @@ require(['require'], function(require) {
 
 	mocha.setup('bdd');
 
-	require(['test/rsa-test'], function() {
-		require(['test/aes-test'], function() {
-			require(['test/util-test'], function() {
-				require(['test/lib-test'], function() {
-					mocha.run();
-				});
-			});
+	require(['test/aes-test'], function() {
+		require(['test/util-test'], function() {
+			mocha.run();
 		});
 	});
 });

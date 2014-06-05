@@ -22,15 +22,6 @@ function doTests(assert, util) {
 			});
 		});
 
-		describe("Parse Date", function() {
-			it('should work', function() {
-				var str = '1900-01-31 18:17:53';
-				var date = util.parseDate(str);
-				var formated = util.formatDate(date);
-				assert.equal(formated, str, "Date: " + date);
-			});
-		});
-
 		describe("String -> Uint8Array -> String", function() {
 			it('should work', function() {
 				var input = "asdf";
@@ -101,6 +92,6 @@ if (typeof define !== 'undefined' && define.amd) {
 	});
 
 } else if (typeof module !== 'undefined' && module.exports) {
-	var util = require('../src/util');
+	var util = require('../index').util;
 	doTests(require('chai').assert, util);
 }

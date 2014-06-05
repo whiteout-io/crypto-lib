@@ -1,7 +1,7 @@
 {
 	"name": "crypto-lib",
 	"version": "0.1.1",
-	"main": "crypto-lib.js",
+	"main": "index.js",
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/whiteout-io/crypto-lib.git"
@@ -17,7 +17,7 @@
 		"requirejs": "2.1.8",
 		"node-uuid": "1.4.1",
 		"underscore": "1.4.4",
-		"node-forge": "~0.2.27"
+		"node-forge": "0.5.5"
 	},
 	"devDependencies": {
 		"grunt": "~0.4.1",

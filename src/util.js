@@ -1,20 +1,24 @@
-(function() {
+(function(factory) {
+    'use strict';
+
+    if (typeof define === 'function' && define.amd) {
+        define(['forge', 'uuid'], factory);
+    } else if (typeof exports === 'object') {
+        module.exports = factory(require('node-forge'), require('node-uuid'), require('crypto'));
+    }
+})(function(forge, uuid, nodeCrypto) {
     'use strict';
 
     /**
      * Various utitity methods for crypto, encoding & decoding
      */
-    var Util = function(forge, uuid, crypt) {
-        this._forge = forge;
-        this._uuid = uuid;
-        this._crypt = crypt;
-    };
+    var Util = function() {};
 
     /**
      * Generates a new RFC 4122 version 4 compliant random UUID
      */
     Util.prototype.UUID = function() {
-        return this._uuid.v4();
+        return uuid.v4();
     };
 
     /**
@@ -32,50 +36,14 @@
             keyBase64 = window.btoa(this.uint8Arr2BinStr(keyBuf));
         } else if (typeof module !== 'undefined' && module.exports) {
             // node.js
-            keyBuf = this._crypt.randomBytes(keySize / 8);
+            keyBuf = nodeCrypto.randomBytes(keySize / 8);
             keyBase64 = new Buffer(keyBuf).toString('base64');
         } else {
             // generate random bytes with fortuna algorithm from forge
-            keyBase64 = window.btoa(this._forge.random.getBytesSync(keySize / 8));
+            keyBase64 = window.btoa(forge.random.getBytesSync(keySize / 8));
         }
 
         return keyBase64;
-    };
-
-    /**
-     * Parse a date string with the following format "1900-01-31 18:17:53"
-     */
-    Util.prototype.parseDate = function(str) {
-        var parts = str.match(/(\d+)/g);
-        return new Date(parts[0], parts[1] - 1, parts[2], parts[3], parts[4], parts[5]);
-    };
-
-    /**
-     * Returns a string representation of a date in the format "1900-01-31 18:17:53"
-     */
-    Util.prototype.formatDate = function(date) {
-        var year = "" + date.getFullYear();
-        var month = "" + (date.getMonth() + 1);
-        if (month.length === 1) {
-            month = "0" + month;
-        }
-        var day = "" + date.getDate();
-        if (day.length === 1) {
-            day = "0" + day;
-        }
-        var hour = "" + date.getHours();
-        if (hour.length === 1) {
-            hour = "0" + hour;
-        }
-        var minute = "" + date.getMinutes();
-        if (minute.length === 1) {
-            minute = "0" + minute;
-        }
-        var second = "" + date.getSeconds();
-        if (second.length === 1) {
-            second = "0" + second;
-        }
-        return year + "-" + month + "-" + day + " " + hour + ":" + minute + ":" + second;
     };
 
     /**
@@ -152,7 +120,7 @@
         } else if (typeof module !== 'undefined' && module.exports) {
             return new Buffer(str, 'binary').toString('base64');
         } else {
-            return this._forge.util.encode64(str);
+            return forge.util.encode64(str);
         }
     };
 
@@ -165,7 +133,7 @@
         } else if (typeof module !== 'undefined' && module.exports) {
             return new Buffer(str, 'base64').toString('binary');
         } else {
-            return this._forge.util.decode64(str);
+            return forge.util.decode64(str);
         }
     };
 
@@ -174,7 +142,7 @@
      * @param str [String] a UTF-16 encoded string
      */
     Util.prototype.encodeUtf8 = function(str) {
-        return this._forge.util.encodeUtf8(str);
+        return forge.util.encodeUtf8(str);
     };
 
     /**
@@ -182,7 +150,7 @@
      * @param str [String] a UTF-8 encoded string
      */
     Util.prototype.decodeUtf8 = function(str) {
-        return this._forge.util.decodeUtf8(str);
+        return forge.util.decodeUtf8(str);
     };
 
     /**
@@ -194,14 +162,5 @@
         return re.test(emailAddress);
     };
 
-    if (typeof define !== 'undefined' && define.amd) {
-        // AMD
-        define(['uuid', 'forge'], function(uuid, forge) {
-            return new Util(forge, uuid, undefined);
-        });
-    } else if (typeof module !== 'undefined' && module.exports) {
-        // node.js
-        module.exports = new Util(require('node-forge'), require('node-uuid'), require('crypto'));
-    }
-
-})();
+    return new Util();
+});
