@@ -23,6 +23,20 @@ function doTests(assert, aes, util) {
 				var decrypted = aes.decrypt(ciphertext, key, iv);
 				assert.equal(decrypted, plaintext, 'Decryption correct' + decrypted);
 			});
+
+			it('should fail due to wrong key', function() {
+				var plaintext = aesTest.testMessage;
+				var key = util.random(aesTest.keySize);
+				var iv = util.random(aesTest.keySize);
+				assert.ok(key, 'Key: ' + key);
+				assert.equal(util.base642Str(key).length * 8, aesTest.keySize, 'Keysize ' + aesTest.keySize);
+
+				var ciphertext = aes.encrypt(plaintext, key, iv);
+				assert.ok(ciphertext, 'Ciphertext lenght: ' + ciphertext.length);
+
+				var wrongKey = util.random(aesTest.keySize);
+				assert.throw(aes.decrypt.bind(aes, ciphertext, wrongKey, iv));
+			});
 		});
 
 	});
