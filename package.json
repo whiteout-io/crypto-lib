@@ -1,6 +1,6 @@
 {
 	"name": "crypto-lib",
-	"version": "0.1.1",
+	"version": "0.2.1",
 	"main": "index.js",
 	"repository": {
 		"type": "git",
@@ -14,10 +14,10 @@
 		"node": "*"
 	},
 	"dependencies": {
-		"requirejs": "2.1.8",
-		"node-uuid": "1.4.1",
-		"underscore": "1.4.4",
-		"node-forge": "0.5.5"
+		"requirejs": "~2.1.8",
+		"node-uuid": "~1.4.1",
+		"underscore": "~1.4.4",
+		"node-forge": "~0.6.12"
 	},
 	"devDependencies": {
 		"grunt": "~0.4.1",

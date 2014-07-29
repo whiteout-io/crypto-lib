@@ -16,7 +16,7 @@ A high level crypto module for node.js and the browser. This library exposes a b
 
 ### Install and Test
 
-	npm install https://github.com/whiteout-io/crypto-lib/tarball/master
+	npm install crypto-lib
 	cd node_modules/crypto-lib/
 	npm test
 
