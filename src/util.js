@@ -47,6 +47,40 @@
     };
 
     /**
+     * Generates a cryptographically secure random string
+     * @param length [Number] The string length
+     * @param chars [String] (optional) The base charset to pick from, defaults to uppercase alphanumeric
+     * @return [String] The random string
+     */
+    Util.prototype.randomString = function(length, chars) {
+        var result = '',
+            binaryString;
+
+        chars = chars || '0123456789abcdefghijklmnopqrstuvwxzy';
+
+        if (typeof window !== 'undefined' && window.crypto && window.crypto.getRandomValues) {
+            // browser if secure rng exists
+            var buf = new Uint8Array(length);
+            window.crypto.getRandomValues(buf);
+            binaryString = this.uint8Arr2BinStr(buf);
+        } else if (typeof module !== 'undefined' && module.exports) {
+            // node.js
+            binaryString = new Buffer(nodeCrypto.randomBytes(length)).toString('binary');
+        } else {
+            // generate random bytes with fortuna algorithm from forge
+            binaryString = forge.random.getBytesSync(length);
+        }
+
+        for (var i = 0; i < binaryString.length; i++) {
+            result += chars[Math.round(binaryString.charCodeAt(i) / 255 * (chars.length - 1))];
+        }
+
+        return result;
+    };
+
+
+
+    /**
      * Converts a binary String (e.g. from the FileReader Api) to an ArrayBuffer
      * @param str [String] a binary string with integer values (0..255) per character
      * @return [ArrayBuffer]
