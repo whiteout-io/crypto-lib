@@ -22,6 +22,23 @@ function doTests(assert, util) {
 			});
 		});
 
+		describe("Generate Random String", function() {
+			it('should work with default charset', function() {
+				var rnd = util.randomString(20);
+				assert.ok(rnd.length === 20, "Random length");
+			});
+
+			it('should work with custom charset', function() {
+				var charset = 'asdWBN123@#$%&0!{}~/';
+				var rnd = util.randomString(20, charset);
+				var i = 20;
+				while(i--) {
+					assert.ok(charset.indexOf(rnd.charAt(i)) > -1, "charset invalid");
+				}
+				assert.ok(rnd.length === 20, "Random length");
+			});
+		});
+
 		describe("String -> Uint8Array -> String", function() {
 			it('should work', function() {
 				var input = "asdf";
