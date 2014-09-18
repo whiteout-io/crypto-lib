@@ -24,18 +24,23 @@ function doTests(assert, util) {
 
 		describe("Generate Random String", function() {
 			it('should work with default charset', function() {
-				var rnd = util.randomString(20);
-				assert.ok(rnd.length === 20, "Random length");
+				var charset = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+				var rnd = util.randomString(2000);
+				var i = 2000;
+				while(i--) {
+					assert.ok(charset.indexOf(rnd.charAt(i)) > -1, "charset invalid");
+				}
+				assert.ok(rnd.length === 2000, "Random length");
 			});
 
 			it('should work with custom charset', function() {
 				var charset = 'asdWBN123@#$%&0!{}~/';
-				var rnd = util.randomString(20, charset);
-				var i = 20;
+				var rnd = util.randomString(2000, charset);
+				var i = 2000;
 				while(i--) {
 					assert.ok(charset.indexOf(rnd.charAt(i)) > -1, "charset invalid");
 				}
-				assert.ok(rnd.length === 20, "Random length");
+				assert.ok(rnd.length === 2000, "Random length");
 			});
 		});
 

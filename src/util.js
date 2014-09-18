@@ -56,7 +56,7 @@
         var result = '',
             binaryString;
 
-        chars = chars || '0123456789abcdefghijklmnopqrstuvwxzy';
+        chars = chars || '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ';
 
         if (typeof window !== 'undefined' && window.crypto && window.crypto.getRandomValues) {
             // browser if secure rng exists
