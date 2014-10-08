@@ -4,7 +4,8 @@
     if (typeof define === 'function' && define.amd) {
         define(['forge'], factory);
     } else if (typeof exports === 'object') {
-        module.exports = factory(require('node-forge'));
+        var forge = typeof window !== 'undefined' && window.forge ? window.forge : require('node-forge');
+        module.exports = factory(forge);
     }
 })(function(forge) {
     'use strict';
