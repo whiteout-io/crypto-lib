@@ -5,7 +5,8 @@
         define(['forge', 'uuid'], factory);
     } else if (typeof exports === 'object') {
         var forge = typeof window !== 'undefined' && window.forge ? window.forge : require('node-forge');
-        module.exports = factory(forge, require('node-uuid'), require('crypto'));
+        var nodeCrypto = typeof window !== 'undefined' ? undefined : require('crypto');
+        module.exports = factory(forge, require('node-uuid'), nodeCrypto);
     }
 })(function(forge, uuid, nodeCrypto) {
     'use strict';
