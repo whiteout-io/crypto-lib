@@ -1,6 +1,6 @@
 {
 	"name": "crypto-lib",
-	"version": "0.2.5",
+	"version": "0.2.6",
 	"main": "index.js",
 	"repository": {
 		"type": "git",
