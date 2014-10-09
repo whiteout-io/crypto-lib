@@ -36,7 +36,7 @@
             keyBuf = new Uint8Array(keySize / 8);
             window.crypto.getRandomValues(keyBuf);
             keyBase64 = window.btoa(this.uint8Arr2BinStr(keyBuf));
-        } else if (typeof module !== 'undefined' && module.exports) {
+        } else if (nodeCrypto) {
             // node.js
             keyBuf = nodeCrypto.randomBytes(keySize / 8);
             keyBase64 = new Buffer(keyBuf).toString('base64');
@@ -65,7 +65,7 @@
             var buf = new Uint8Array(length);
             window.crypto.getRandomValues(buf);
             binaryString = this.uint8Arr2BinStr(buf);
-        } else if (typeof module !== 'undefined' && module.exports) {
+        } else if (nodeCrypto) {
             // node.js
             binaryString = new Buffer(nodeCrypto.randomBytes(length)).toString('binary');
         } else {
