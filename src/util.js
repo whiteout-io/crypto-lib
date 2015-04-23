@@ -74,7 +74,7 @@
         }
 
         for (var i = 0; i < binaryString.length; i++) {
-            result += chars[Math.round(binaryString.charCodeAt(i) / 255 * (chars.length - 1))];
+            result += chars[Math.floor(binaryString.charCodeAt(i) / 256 * chars.length)];
         }
 
         return result;
